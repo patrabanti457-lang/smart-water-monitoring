@@ -75,7 +75,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-text-muted">
           <div>
-            &copy; {new Date().getFullYear()} DrainWatch Platform. All rights reserved.
+            &copy; {new Date().getFullYear()} FloodGuard Platform. All rights reserved.
           </div>
           <div>
             Midnight Navy & Cobalt Blue Architecture · Built for Safer Communities

@@ -24,7 +24,7 @@ export default function ContactPage() {
               Mission & Core Objectives
             </h2>
             <p className="text-text-secondary text-sm sm:text-base leading-relaxed">
-              DrainWatch was developed to transform reactive drainage management into proactive, telemetry-informed dispatch. By combining dual-depth transducers with real-time flow measurement, the system empowers crews to inspect localized canal blockages before water crests street level.
+              FloodGuard was developed to transform reactive drainage management into proactive, telemetry-informed dispatch. By combining dual-depth transducers with real-time flow measurement, the system empowers crews to inspect localized canal blockages before water crests street level.
             </p>
 
             <div className="space-y-4 pt-4 border-t border-border">
@@ -55,7 +55,7 @@ export default function ContactPage() {
             <div className="space-y-4 text-xs font-mono text-text-secondary">
               <div className="p-3.5 rounded-xl bg-navy-900 border border-border flex items-center gap-3">
                 <Mail className="w-4 h-4 text-cobalt" />
-                <span>telemetry@drainwatch-monitor.local</span>
+                <span>telemetry@FloodGuard-monitor.local</span>
               </div>
               <div className="p-3.5 rounded-xl bg-navy-900 border border-border flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-cobalt-light" />

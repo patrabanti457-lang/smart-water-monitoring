@@ -1,4 +1,4 @@
-// Design tokens — single source of truth for the DrainWatch design system
+// Design tokens — single source of truth for the FloodGuard design system
 
 export const colors = {
   navy: {
