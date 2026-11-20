@@ -13,7 +13,7 @@ export default function Footer() {
                 <Droplets className="w-4 h-4" />
               </div>
               <span className="font-display font-bold text-xl tracking-tight text-text-primary">
-                Drain<span className="text-cobalt-light">Watch</span>
+                Flood<span className="text-cobalt-light">Guard</span>
               </span>
             </div>
             <p className="text-text-muted leading-relaxed max-w-sm">

@@ -69,7 +69,7 @@ export default function Navbar() {
           </div>
           <div className="flex flex-col">
             <span className="font-display font-bold text-lg tracking-tight text-text-primary">
-              Drain<span className="text-cobalt-light">Watch</span>
+              Flood<span className="text-cobalt-light">Guard</span>
             </span>
             <span className="text-[10px] text-text-muted font-mono leading-none -mt-0.5 tracking-wider uppercase">
               Smart Water System
