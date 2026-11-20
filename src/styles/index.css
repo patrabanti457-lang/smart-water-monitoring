@@ -1,0 +1,119 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    background-color: #0B1020;
+    color: #F8FAFC;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  @media (pointer: coarse) {
+    body {
+      cursor: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  ::selection {
+    background-color: rgba(37, 99, 235, 0.3);
+    color: #F8FAFC;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #080D19;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #27344D;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2563EB;
+  }
+}
+
+@layer components {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cobalt to-cobalt-light;
+  }
+
+  .section-padding {
+    @apply py-24 md:py-32;
+  }
+
+  .container-width {
+    @apply max-w-7xl mx-auto px-5 md:px-8;
+  }
+
+  .glass-surface {
+    @apply bg-navy-800/60 backdrop-blur-md border border-border;
+  }
+
+  .card-surface {
+    @apply bg-surface border border-border rounded-xl;
+  }
+
+  .elevated-surface {
+    @apply bg-surface-elevated border border-border rounded-xl;
+  }
+
+  /* 4K Cinematic Hero Background Styles */
+  .hero-bg {
+    /* No background-color here - the image + overlay handle it */
+  }
+
+  .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(6, 20, 38, 0.72) 0%,      /* Deep Navy #061426 */
+      rgba(6, 20, 38, 0.82) 45%,    /* Deep Navy #061426 - text zone */
+      rgba(6, 20, 38, 0.80) 65%,    /* Deep Navy #061426 - text zone */
+      rgba(6, 20, 38, 0.75) 100%     /* Deep Navy #061426 */
+    );
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
