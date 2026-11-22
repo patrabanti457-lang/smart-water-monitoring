@@ -12,11 +12,11 @@ export default function SystemPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-navy-900 text-text-primary pt-24 pb-32">
+    <div className="min-h-screen bg-deep-900 text-text-primary pt-24 pb-32">
       <div className="max-w-7xl mx-auto px-5 md:px-8 space-y-8">
         {/* Header */}
         <div className="pb-6 border-b border-border">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-800 border border-border text-xs font-mono text-cobalt-light uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-deep-800 border border-border text-xs font-mono text-teal-100 uppercase tracking-wider mb-2">
             <Activity className="w-3.5 h-3.5" /> Hardware & Service Configuration
           </div>
           <h1 className="font-display font-bold text-3xl sm:text-4xl text-text-primary tracking-tight">
@@ -33,7 +33,7 @@ export default function SystemPage() {
             <div>
               <div className="text-xs font-mono text-text-muted uppercase">Registered Telemetry Unit</div>
               <div className="font-display font-bold text-2xl text-text-primary mt-1">
-                DRAIN_001 <span className="text-xs font-mono text-cobalt-light font-normal">(Primary Culvert Node)</span>
+                DRAIN_001 <span className="text-xs font-mono text-teal-100 font-normal">(Primary Culvert Node)</span>
               </div>
               <div className="text-xs text-text-secondary mt-1">
                 Firmware Build: v2.4.1-esp32-sim7600 · Location: Sector 4 North Main Canal
@@ -78,8 +78,8 @@ export default function SystemPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {configs.map((c) => (
-              <div key={c.key} className="p-4 rounded-xl bg-navy-900 border border-border">
-                <div className="font-mono text-xs text-cobalt-light font-bold mb-1">{c.key}</div>
+              <div key={c.key} className="p-4 rounded-xl bg-deep-800 border border-border">
+                <div className="font-mono text-xs text-teal-100 font-bold mb-1">{c.key}</div>
                 <div className="font-mono text-lg font-bold text-text-primary">{c.value}</div>
                 <div className="text-[11px] text-text-muted mt-1 leading-snug">{c.desc}</div>
               </div>
@@ -90,22 +90,22 @@ export default function SystemPage() {
         {/* Cloud Architecture Nodes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="bg-surface border border-border rounded-xl p-5">
-            <Cpu className="w-6 h-6 text-cobalt mb-3" />
+            <Cpu className="w-6 h-6 text-teal-400 mb-3" />
             <div className="font-display font-bold text-base text-text-primary">ESP32 Core</div>
             <div className="text-xs text-text-secondary mt-1">Non-blocking millis() sensing & threshold evaluation</div>
           </div>
           <div className="bg-surface border border-border rounded-xl p-5">
-            <Signal className="w-6 h-6 text-cobalt-light mb-3" />
+            <Signal className="w-6 h-6 text-teal-400 mb-3" />
             <div className="font-display font-bold text-base text-text-primary">SIM7600CE 4G</div>
             <div className="text-xs text-text-secondary mt-1">High-speed cellular uplink for field locations</div>
           </div>
           <div className="bg-surface border border-border rounded-xl p-5">
-            <Server className="w-6 h-6 text-cobalt mb-3" />
+            <Server className="w-6 h-6 text-teal-400 mb-3" />
             <div className="font-display font-bold text-base text-text-primary">FastAPI Gateway</div>
             <div className="text-xs text-text-secondary mt-1">Port 8000 validation & alert orchestration</div>
           </div>
           <div className="bg-surface border border-border rounded-xl p-5">
-            <Database className="w-6 h-6 text-cobalt-light mb-3" />
+            <Database className="w-6 h-6 text-teal-400 mb-3" />
             <div className="font-display font-bold text-base text-text-primary">Firebase Cloud</div>
             <div className="text-xs text-text-secondary mt-1">Realtime and persistent historical telemetry</div>
           </div>

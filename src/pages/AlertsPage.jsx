@@ -130,7 +130,7 @@ export default function AlertsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-navy-900 text-text-primary pt-24 pb-32">
+    <div className="min-h-screen bg-deep-900 text-text-primary pt-24 pb-32">
       <div className="max-w-7xl mx-auto px-5 md:px-8 space-y-8">
         {/* Page Title */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-border">
@@ -148,7 +148,7 @@ export default function AlertsPage() {
 
           <div className="flex items-center gap-2 text-xs font-mono text-text-muted">
             <span>MANDATORY PROTOCOL:</span>
-            <span className="text-text-primary px-2.5 py-1 rounded bg-navy-800 border border-border">
+            <span className="text-text-primary px-2.5 py-1 rounded bg-deep-800 border border-border">
               Inspection Confirms Blockage
             </span>
           </div>
@@ -164,9 +164,9 @@ export default function AlertsPage() {
             <div className="text-xs font-mono text-alert-red uppercase">Critical Severity</div>
             <div className="font-display font-bold text-2xl text-alert-red mt-1">{stats.critical}</div>
           </div>
-          <div className="bg-surface border border-cobalt/40 rounded-xl p-4">
-            <div className="text-xs font-mono text-cobalt-light uppercase">Active Conditions</div>
-            <div className="font-display font-bold text-2xl text-cobalt-light mt-1">{stats.active}</div>
+          <div className="bg-surface border border-teal-400/40 rounded-xl p-4">
+            <div className="text-xs font-mono text-teal-100 uppercase">Active Conditions</div>
+            <div className="font-display font-bold text-2xl text-teal-100 mt-1">{stats.active}</div>
           </div>
           <div className="bg-surface border border-amber-500/40 rounded-xl p-4">
             <div className="text-xs font-mono text-amber-400 uppercase">Awaiting Acknowledgment</div>
@@ -191,8 +191,8 @@ export default function AlertsPage() {
                 className={clsx(
                   'px-3.5 py-1.5 rounded-xl text-xs font-mono transition-colors',
                   filterSeverity === f.id
-                    ? 'bg-cobalt text-text-primary font-bold shadow-sm shadow-cobalt/30'
-                    : 'bg-navy-900 text-text-secondary hover:text-text-primary border border-border'
+                    ? 'bg-teal-400 text-text-primary font-bold shadow-sm shadow-teal-400/30'
+                    : 'bg-deep-800 text-text-secondary hover:text-text-primary border border-border'
                 )}
               >
                 {f.label}
@@ -208,7 +208,7 @@ export default function AlertsPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search description, device, or ID..."
-              className="w-full pl-9 pr-4 py-1.5 rounded-xl bg-navy-900 border border-border text-xs font-mono text-text-primary placeholder:text-text-muted focus:outline-none focus:border-cobalt"
+              className="w-full pl-9 pr-4 py-1.5 rounded-xl bg-deep-800 border border-border text-xs font-mono text-text-primary placeholder:text-text-muted focus:outline-none focus:border-teal-400"
             />
           </div>
         </div>
@@ -233,7 +233,7 @@ export default function AlertsPage() {
                       ? 'border-alert-red/60 shadow-lg shadow-alert-red/5'
                       : isCritical
                       ? 'border-alert-red/40'
-                      : 'border-border hover:border-cobalt/40'
+                      : 'border-border hover:border-teal-400/40'
                   )}
                 >
                   {/* Left severity indicator bar */}
@@ -277,7 +277,7 @@ export default function AlertsPage() {
                       {/* Associated telemetry readings badge list */}
                       <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-text-muted pt-1">
                         <div className="flex items-center gap-1.5">
-                          <Droplets className="w-3.5 h-3.5 text-cobalt" />
+                          <Droplets className="w-3.5 h-3.5 text-teal-400" />
                           <span>Upstream: <strong className="text-text-primary">{alert.upstream_level !== null ? `${alert.upstream_level}cm` : 'N/A'}</strong></span>
                         </div>
                         <div className="flex items-center gap-1.5">
@@ -285,7 +285,7 @@ export default function AlertsPage() {
                           <span>Downstream: <strong className="text-text-primary">{alert.downstream_level}cm</strong></span>
                         </div>
                         <div className="flex items-center gap-1.5">
-                          <Gauge className="w-3.5 h-3.5 text-cobalt-light" />
+                          <Gauge className="w-3.5 h-3.5 text-teal-100" />
                           <span>Flow: <strong className="text-text-primary">{alert.flow_rate} L/min</strong></span>
                         </div>
                       </div>
@@ -301,7 +301,7 @@ export default function AlertsPage() {
                       ) : (
                         <button
                           onClick={() => handleAcknowledge(alert.id)}
-                          className="px-4 py-2 rounded-xl bg-cobalt hover:bg-cobalt-light text-text-primary text-xs font-mono font-semibold transition-colors shadow-sm shadow-cobalt/20"
+                          className="px-4 py-2 rounded-xl bg-teal-400 hover:bg-teal-300 text-text-primary text-xs font-mono font-semibold transition-colors shadow-sm shadow-teal-400/20"
                         >
                           Acknowledge Dispatch
                         </button>

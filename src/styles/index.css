@@ -18,7 +18,7 @@
 
   body {
     margin: 0;
-    background-color: #0B1020;
+    background-color: #131B2B;
     color: #F8FAFC;
     font-family: 'Inter', system-ui, sans-serif;
     overflow-x: hidden;
@@ -45,7 +45,7 @@
   }
 
   ::selection {
-    background-color: rgba(37, 99, 235, 0.3);
+    background-color: rgba(91, 145, 163, 0.3);
     color: #F8FAFC;
   }
 
@@ -54,22 +54,22 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #080D19;
+    background: #0A0E17;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #27344D;
+    background: #2F4A63;
     border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #2563EB;
+    background: #5B91A3;
   }
 }
 
 @layer components {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-cobalt to-cobalt-light;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-teal-100;
   }
 
   .section-padding {
@@ -81,7 +81,7 @@
   }
 
   .glass-surface {
-    @apply bg-navy-800/60 backdrop-blur-md border border-border;
+    @apply bg-deep-900/80 backdrop-blur-xl border border-border/50;
   }
 
   .card-surface {
@@ -100,10 +100,10 @@
   .hero-overlay {
     background: linear-gradient(
       180deg,
-      rgba(6, 20, 38, 0.72) 0%,      /* Deep Navy #061426 */
-      rgba(6, 20, 38, 0.82) 45%,    /* Deep Navy #061426 - text zone */
-      rgba(6, 20, 38, 0.80) 65%,    /* Deep Navy #061426 - text zone */
-      rgba(6, 20, 38, 0.75) 100%     /* Deep Navy #061426 */
+      rgba(19, 27, 43, 0.72) 0%,      /* Color Hunt Deep #131B2B */
+      rgba(19, 27, 43, 0.82) 45%,    /* Deep Navy - text zone */
+      rgba(19, 27, 43, 0.80) 65%,    /* Deep Navy - text zone */
+      rgba(19, 27, 43, 0.75) 100%     /* Deep Navy */
     );
   }
 }

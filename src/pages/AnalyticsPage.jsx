@@ -29,12 +29,12 @@ export default function AnalyticsPage() {
   const [period, setPeriod] = useState('7d');
 
   return (
-    <div className="min-h-screen bg-navy-900 text-text-primary pt-24 pb-32">
+    <div className="min-h-screen bg-deep-900 text-text-primary pt-24 pb-32">
       <div className="max-w-7xl mx-auto px-5 md:px-8 space-y-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-border">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cobalt/10 border border-cobalt/30 text-xs font-mono text-cobalt-light uppercase tracking-wider mb-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-400/10 border border-teal-400/30 text-xs font-mono text-teal-100 uppercase tracking-wider mb-2">
               <BarChart3 className="w-3.5 h-3.5" /> Historical Intelligence
             </div>
             <h1 className="font-display font-bold text-3xl sm:text-4xl text-text-primary tracking-tight">
@@ -54,7 +54,7 @@ export default function AnalyticsPage() {
                   className={clsx(
                     'px-3 py-1.5 rounded-lg transition-colors',
                     period === p
-                      ? 'bg-cobalt text-text-primary font-bold'
+                      ? 'bg-teal-400 text-text-primary font-bold'
                       : 'text-text-muted hover:text-text-primary'
                   )}
                 >
@@ -132,7 +132,7 @@ export default function AnalyticsPage() {
                   contentStyle={{ backgroundColor: '#111A2E', borderColor: '#27344D', borderRadius: '12px' }}
                 />
                 <Legend />
-                <Bar dataKey="avgUpstream" name="Upstream Level (cm)" fill="#2563EB" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="avgUpstream" name="Upstream Level (cm)" fill="#5B91A3" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="avgDownstream" name="Downstream Level (cm)" fill="#F59E0B" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -155,8 +155,8 @@ export default function AnalyticsPage() {
               <AreaChart data={ANALYTICS_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="flowAnaGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#3B82F6" stopOpacity={0.0} />
+                    <stop offset="5%" stopColor="#5B91A3" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#5B91A3" stopOpacity={0.0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1C2942" vertical={false} />
@@ -169,7 +169,7 @@ export default function AnalyticsPage() {
                   type="monotone"
                   dataKey="avgFlow"
                   name="Mean Flow Rate (L/min)"
-                  stroke="#3B82F6"
+                  stroke="#5B91A3"
                   strokeWidth={2.5}
                   fillOpacity={1}
                   fill="url(#flowAnaGradient)"

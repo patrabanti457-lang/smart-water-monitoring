@@ -1,130 +1,140 @@
 import { motion } from 'framer-motion';
-import { Activity, Layers, BellRing, Gauge, ArrowDownRight, ArrowUpRight } from 'lucide-react';
+import { Activity, Layers, BellRing, Gauge, ArrowDownRight, ArrowUpRight, Waves, Cpu, Shield, Zap } from 'lucide-react';
 import ScrollReveal from '@/components/core/ScrollReveal';
+
+const features = [
+  {
+    icon: Waves,
+    category: 'PRIMARY DETECTION ENGINE',
+    title: 'Differential Water Elevation Analysis',
+    description: 'A single high water sensor cannot differentiate between overall canal surge and an internal localized choke point. By computing the real-time Delta between upstream and downstream monitoring points, the platform isolates flow restrictions with high specificity.',
+    specs: [
+      { label: 'Threshold Delta', value: '≥ 15 cm' },
+      { label: 'Critical Surge Limit', value: '60 cm' },
+      { label: 'Low Flow Gate', value: '< 2.0 L/min' },
+    ],
+    visual: 'dual-chamber',
+  },
+  {
+    icon: Gauge,
+    category: 'SECONDARY TELEMETRY',
+    title: 'Dynamic Flow Rate Telemetry',
+    description: 'Water elevation alone doesn\'t reveal fluid velocity. Flow sensors capture pulse frequencies via interrupt handlers, converting raw pulses to liters-per-minute metrics to verify whether water is actively draining or stagnating behind an impediment.',
+    specs: [
+      { label: 'Calculation', value: 'Sliding ms window' },
+      { label: 'Method', value: 'Interrupt-driven' },
+      { label: 'Precision', value: '0.1 L/min resolution' },
+    ],
+    visual: 'flow-meter',
+  },
+  {
+    icon: BellRing,
+    category: 'ALERT ORCHESTRATION',
+    title: 'Graduated Alert Hierarchy',
+    description: 'Prevents alert fatigue through structured severity tiers: NORMAL, HIGH_WATER_WARNING, LOW_FLOW, POSSIBLE_BLOCKAGE, and emergency float switch activations. Teams prioritize responses based on verified risk.',
+    specs: [
+      { label: 'Tiers', value: '5 severity levels' },
+      { label: 'Latency', value: '< 2s end-to-end' },
+      { label: 'Validation', value: 'Human required' },
+    ],
+    visual: 'alert-hierarchy',
+  },
+  {
+    icon: Cpu,
+    category: 'EDGE COMPUTE',
+    title: 'Autonomous Condition Assessment',
+    description: 'On-device rule engine evaluates multi-condition logic without cloud dependency. Local inference ensures alert generation persists during cellular network interruptions.',
+    specs: [
+      { label: 'Sampling', value: '250 ms loop' },
+      { label: 'Autonomy', value: 'Full offline ops' },
+      { label: 'Reconnection', value: 'Auto-exponential backoff' },
+    ],
+    visual: 'edge-compute',
+  },
+  {
+    icon: Shield,
+    category: 'DATA INTEGRITY',
+    title: 'Firebase Realtime Synchronization',
+    description: 'Dual-write to Firestore for historical analytics and Realtime Database for instant operational dashboards. Zero client credential exposure via server-side proxy.',
+    specs: [
+      { label: 'Storage', value: 'Firestore + RTDB' },
+      { label: 'Queries', value: 'Time-window indexed' },
+      { label: 'Security', value: 'Server auth only' },
+    ],
+    visual: 'data-sync',
+  },
+  {
+    icon: Zap,
+    category: 'CLOUD INFERENCE',
+    title: 'FastAPI Secondary Analysis',
+    description: 'Cloud microservice performs bound verification, secondary blockage inference, and alert enrichment. Sub-millisecond processing with Pydantic v2 schema validation.',
+    specs: [
+      { label: 'Processing', value: 'Sub-ms per payload' },
+      { label: 'Validation', value: 'Pydantic v2 strict' },
+      { label: 'API', value: 'REST + WebSocket' },
+    ],
+    visual: 'cloud-inference',
+  },
+];
 
 export default function FeaturesSection() {
   return (
-    <section id="features" className="py-24 md:py-32 bg-navy-900 relative">
+    <section id="features" className="py-24 md:py-32 bg-deep-900 relative">
+      {/* Subtle background glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-teal-400/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+
       <div className="max-w-7xl mx-auto px-5 md:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <ScrollReveal variant="fadeUp">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-navy-800 border border-border text-xs font-mono text-cobalt-light uppercase tracking-wider mb-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-deep-800 border border-border text-xs font-mono text-teal-100 uppercase tracking-wider mb-4">
               Monitoring Capabilities
             </div>
-            <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-text-primary tracking-tight">
+            <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-text-primary tracking-tight leading-[1.1]">
               Continuous Hydrological Intelligence
             </h2>
-            <p className="mt-4 text-text-secondary text-base sm:text-lg">
+            <p className="mt-4 text-text-secondary text-base sm:text-lg max-w-2xl mx-auto font-light leading-relaxed">
               Sophisticated differential analysis designed to catch anomalies early and alert field crews with accurate context.
             </p>
           </ScrollReveal>
         </div>
 
-        {/* Editorial Layout: Large Showcase Feature */}
-        <div className="space-y-8">
-          {/* Feature 1: Large Banner on Differential Analysis */}
-          <ScrollReveal variant="fadeUp">
-            <div className="bg-surface rounded-3xl border border-border p-8 md:p-12 relative overflow-hidden">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div className="lg:col-span-7">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-cobalt/10 border border-cobalt/30 text-xs font-mono text-cobalt-light mb-4">
-                    PRIMARY DETECTION ENGINE
-                  </div>
-                  <h3 className="font-display font-bold text-2xl sm:text-3xl text-text-primary mb-4">
-                    Differential Water Elevation Analysis
-                  </h3>
-                  <p className="text-text-secondary text-base sm:text-lg leading-relaxed mb-6">
-                    A single high water sensor cannot differentiate between overall canal surge and an internal localized choke point. By computing the real-time Delta between upstream and downstream monitoring points, the platform isolates flow restrictions with high specificity.
-                  </p>
-                  <div className="flex flex-wrap gap-4 text-sm font-mono text-text-muted">
-                    <span className="px-3 py-1.5 rounded-lg bg-navy-900 border border-border">
-                      Threshold Delta: &ge; 15 cm
-                    </span>
-                    <span className="px-3 py-1.5 rounded-lg bg-navy-900 border border-border">
-                      Critical Surge Limit: 60 cm
-                    </span>
-                    <span className="px-3 py-1.5 rounded-lg bg-navy-900 border border-border">
-                      Low Flow Gate: &lt; 2.0 L/min
-                    </span>
-                  </div>
+        {/* Feature Grid - Responsive: 1 col mobile, 2 col tablet, 3 col desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {features.map((feature, idx) => (
+            <ScrollReveal key={feature.title} variant="fadeUp" delay={idx * 0.08}>
+              <div className="bg-surface border border-border rounded-2xl p-6 sm:p-8 h-full flex flex-col transition-all duration-300 group hover:border-teal-400/40 hover:shadow-xl hover:shadow-teal-400/10">
+                {/* Category Badge */}
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-teal-400/10 border border-teal-400/30 text-xs font-mono text-teal-100 mb-5">
+                  {feature.category}
                 </div>
 
-                {/* Right Visual Simulation: Dual Chamber Cross-Section */}
-                <div className="lg:col-span-5 bg-navy-950/70 border border-border rounded-2xl p-6">
-                  <div className="text-xs font-mono text-text-muted uppercase mb-4 text-center">
-                    Visual Demonstration: Possible Blockage
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    {/* Upstream Chamber */}
-                    <div className="flex flex-col items-center">
-                      <div className="text-xs font-mono text-text-secondary mb-1">Upstream (78 cm)</div>
-                      <div className="w-full h-44 rounded-xl border border-border bg-navy-900 relative overflow-hidden flex flex-col justify-end">
-                        <div className="w-full h-[78%] bg-gradient-to-t from-cobalt-dark via-cobalt to-cobalt-light opacity-90 transition-all duration-700 relative">
-                          <div className="absolute top-0 left-0 right-0 h-1 bg-white/40 animate-pulse" />
-                        </div>
-                        <div className="absolute top-[40%] left-0 right-0 border-t border-dashed border-alert-red/70" />
-                        <span className="absolute top-[42%] right-2 text-[10px] font-mono text-alert-red">Surge Limit</span>
-                      </div>
-                      <div className="mt-2 text-xs font-mono text-alert-red flex items-center gap-1">
-                        <ArrowUpRight className="w-3.5 h-3.5" /> Surge State
-                      </div>
-                    </div>
-
-                    {/* Downstream Chamber */}
-                    <div className="flex flex-col items-center">
-                      <div className="text-xs font-mono text-text-secondary mb-1">Downstream (24 cm)</div>
-                      <div className="w-full h-44 rounded-xl border border-border bg-navy-900 relative overflow-hidden flex flex-col justify-end">
-                        <div className="w-full h-[24%] bg-gradient-to-t from-cobalt-dark to-cobalt opacity-70 transition-all duration-700 relative" />
-                      </div>
-                      <div className="mt-2 text-xs font-mono text-text-muted flex items-center gap-1">
-                        <ArrowDownRight className="w-3.5 h-3.5" /> Restricted Outflow
-                      </div>
-                    </div>
-                  </div>
-                  <div className="mt-4 pt-3 border-t border-border/70 text-center text-xs font-mono text-alert-red font-semibold">
-                    STATUS TRIGGERED: POSSIBLE_BLOCKAGE
-                  </div>
+                {/* Icon */}
+                <div className="w-12 h-12 rounded-xl bg-deep-800 border border-border flex items-center justify-center text-teal-400 mb-5 group-hover:bg-teal-400 group-hover:text-text-primary transition-all duration-300">
+                  <feature.icon className="w-6 h-6" aria-hidden="true" />
                 </div>
-              </div>
-            </div>
-          </ScrollReveal>
 
-          {/* Features 2 & 3: Two Split Columns */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <ScrollReveal variant="fadeUp" delay={0.1}>
-              <div className="bg-surface rounded-3xl border border-border p-8 h-full">
-                <div className="w-12 h-12 rounded-xl bg-cobalt/15 border border-cobalt/30 text-cobalt flex items-center justify-center mb-6">
-                  <Gauge className="w-6 h-6" />
-                </div>
-                <h4 className="font-display font-bold text-xl text-text-primary mb-3">
-                  Dynamic Flow Rate Telemetry
-                </h4>
-                <p className="text-text-secondary text-base leading-relaxed mb-4">
-                  Water elevation alone doesn't reveal fluid velocity. Flow sensors capture pulse frequencies via interrupt handlers, converting raw pulses to liters-per-minute metrics to verify whether water is actively draining or stagnating behind an impediment.
+                {/* Title */}
+                <h3 className="font-display font-bold text-lg sm:text-xl text-text-primary mb-3 flex-1">
+                  {feature.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-text-secondary text-sm sm:text-base leading-relaxed mb-5 flex-1">
+                  {feature.description}
                 </p>
-                <div className="text-xs font-mono text-text-muted">
-                  Non-blocking sliding millisecond window calculation
+
+                {/* Specs */}
+                <div className="pt-4 border-t border-border/60 space-y-2.5">
+                  {feature.specs.map((spec) => (
+                    <div key={spec.label} className="flex items-center justify-between text-xs font-mono">
+                      <span className="text-text-muted">{spec.label}</span>
+                      <span className="text-text-primary font-medium">{spec.value}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </ScrollReveal>
-
-            <ScrollReveal variant="fadeUp" delay={0.2}>
-              <div className="bg-surface rounded-3xl border border-border p-8 h-full">
-                <div className="w-12 h-12 rounded-xl bg-alert-red/15 border border-alert-red/30 text-alert-red flex items-center justify-center mb-6">
-                  <BellRing className="w-6 h-6" />
-                </div>
-                <h4 className="font-display font-bold text-xl text-text-primary mb-3">
-                  Graduated Alert Hierarchy
-                </h4>
-                <p className="text-text-secondary text-base leading-relaxed mb-4">
-                  Prevents alert fatigue through structured severity tiers: <code>NORMAL</code>, <code>HIGH_WATER_WARNING</code>, <code>LOW_FLOW</code>, <code>POSSIBLE_BLOCKAGE</code>, and emergency float switch activations. Teams prioritize responses based on verified risk.
-                </p>
-                <div className="text-xs font-mono text-text-muted">
-                  Strictly avoids false confirmation of blockages without human validation
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
+          ))}
         </div>
       </div>
     </section>

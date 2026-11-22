@@ -8,7 +8,7 @@ import Footer from '@/components/landing/Footer';
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-navy-900 text-text-primary">
+    <div className="min-h-screen bg-deep-900 text-text-primary">
       <Hero />
       <AboutSection />
       <HowItWorks />

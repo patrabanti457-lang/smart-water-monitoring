@@ -1,359 +1,156 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Droplets,
-  Radio,
-  Cpu,
-  Signal,
-  Server,
-  Database,
-  Monitor,
-  Users,
-  ChevronRight,
-  Activity,
-  AlertCircle
-} from 'lucide-react';
-import clsx from 'clsx';
+import { motion } from 'framer-motion';
+import { Search, Droplets, Zap, ShieldCheck, ArrowRight, Cpu, Database, Wifi } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import ScrollReveal from '@/components/core/ScrollReveal';
 
-const ARCHITECTURE_STEPS = [
-  {
-    id: 0,
-    title: 'Water Monitoring',
-    subtitle: 'Drainage Environment',
-    tag: 'Monitored Segment',
-    icon: Droplets,
-    desc: 'The system continuously monitors water depth and flow dynamics in drainage culverts, canals, and stormwater collection areas.',
-    telemetry: 'Real-time hydrological flow, level variance, stormwater surge',
-    criticalNote: null,
-  },
-  {
-    id: 1,
-    title: 'Dual Sensor Collection',
-    subtitle: 'Ultrasonic & Flow Meters',
-    tag: 'Transducers',
-    icon: Radio,
-    desc: 'Measures upstream water level and downstream water level via dual non-contact transducers, accompanied by an interrupt-driven flow rate sensor and auxiliary float switch.',
-    telemetry: 'Upstream ADC / Distance, Downstream ADC, Pulse Frequency (Hz)',
-    criticalNote: null,
-  },
-  {
-    id: 2,
-    title: 'ESP32 Controller',
-    subtitle: 'Edge Decision Engine',
-    tag: 'Edge Processing',
-    icon: Cpu,
-    desc: 'The ESP32 controller samples ADC readings every 250ms, computes flow rate windows, tests calibrated thresholds, and generates multi-reading condition evaluations.',
-    telemetry: 'Difference = Upstream - Downstream; Threshold = 60cm; Flow < 2L/min',
-    criticalNote: 'Executes non-blocking millis() scheduled task cycles',
-  },
-  {
-    id: 3,
-    title: 'SIM7600CE 4G Link',
-    subtitle: 'Cellular Telemetry Uplink',
-    tag: 'Cellular Uplink',
-    icon: Signal,
-    desc: 'Transmits JSON structured telemetry packets over high-speed cellular networks to eliminate dependency on local Wi-Fi in remote drainage locations.',
-    telemetry: 'LTE Band support, HTTP POST payload, fallback retry buffers',
-    criticalNote: null,
-  },
-  {
-    id: 4,
-    title: 'FastAPI Backend',
-    subtitle: 'High-Throughput Validation',
-    tag: 'Cloud Gateway',
-    icon: Server,
-    desc: 'Ingests incoming telemetry, validates schema integrity, sanitizes sensor bounds, evaluates secondary blockage criteria, and attaches microsecond timestamps.',
-    telemetry: 'Pydantic schema validation, status evaluation, REST endpoints',
-    criticalNote: null,
-  },
-  {
-    id: 5,
-    title: 'Firebase Database',
-    subtitle: 'Realtime Storage & History',
-    tag: 'Persistent Store',
-    icon: Database,
-    desc: 'Stores validated readings, active alerts, and time-series telemetry so historical curves, daily aggregates, and event logs can be retrieved reliably.',
-    telemetry: 'Collections: /readings, /alerts, /devices; Realtime indexing',
-    criticalNote: 'Zero credentials exposed on client bundle',
-  },
-  {
-    id: 6,
-    title: 'React Dashboard',
-    subtitle: 'Cinematic Command Center',
-    tag: 'Operator UI',
-    icon: Monitor,
-    desc: 'Renders live dual-tank water depth animations, responsive Recharts trends, diagnostic status badges, and device health indicators in real time.',
-    telemetry: 'Framer motion visualizers, WebSocket / polling refresh, offline states',
-    criticalNote: null,
-  },
-  {
-    id: 7,
-    title: 'Maintenance Team',
-    subtitle: 'Targeted Field Response',
-    tag: 'Physical Verification',
-    icon: Users,
-    desc: 'Field crew receives categorized notifications (High Water, Low Flow, Possible Blockage) with exact coordinate references to inspect and clear the physical segment.',
-    telemetry: 'Incident acknowledgment, prompt dispatch, physical confirmation',
-    criticalNote: 'Physical inspection is mandatory to confirm blockages',
-  },
-];
-
 export default function HowItWorks() {
-  const [activeStep, setActiveStep] = useState(0);
-  const [simulatedAlertActive, setSimulatedAlertActive] = useState(false);
-  const stepRefs = useRef([]);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      stepRefs.current.forEach((el, index) => {
-        if (!el) return;
-        const rect = el.getBoundingClientRect();
-        // Activate step when its top is within the middle third of the viewport
-        if (rect.top <= window.innerHeight * 0.45 && rect.bottom >= window.innerHeight * 0.3) {
-          setActiveStep(index);
-        }
-      });
-    };
+  const steps = [
+    {
+      number: '01',
+      title: 'Deploy Sensors',
+      description: 'Install dual ultrasonic sensors upstream and downstream of critical choke points. ESP32 controller with SIM7600CE 4G modem enables autonomous cellular telemetry.',
+      icon: Droplets,
+      color: 'teal',
+      bgColor: 'bg-teal-400/10 border-teal-400/30',
+      iconColor: 'text-teal-400',
+    },
+    {
+      number: '02',
+      title: 'Real-Time Analysis',
+      description: 'Continuous differential depth measurement computes delta between monitoring points. Interrupt-driven flow meter captures pulse frequency for velocity verification.',
+      icon: Zap,
+      color: 'amber',
+      bgColor: 'bg-amber/10 border-amber/30',
+      iconColor: 'text-amber-400',
+    },
+    {
+      number: '03',
+      title: 'Instant Alerting',
+      description: 'When upstream surge exceeds downstream with flow velocity drop, FastAPI cloud engine generates graduated alerts: NORMAL → HIGH_WATER_WARNING → POSSIBLE_BLOCKAGE.',
+      icon: ShieldCheck,
+      color: 'emerald',
+      bgColor: 'bg-emerald/10 border-emerald/30',
+      iconColor: 'text-emerald-400',
+    },
+  ];
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const techStack = [
+    { icon: Cpu, label: 'ESP32 Edge', desc: 'Dual ADC sampling' },
+    { icon: Wifi, label: '4G LTE Uplink', desc: 'SIM7600CE modem' },
+    { icon: Database, label: 'Firebase Sync', desc: 'Firestore + RTDB' },
+    { icon: Search, label: 'FastAPI Core', desc: 'Async inference' },
+  ];
 
   return (
-    <section id="how-it-works" className="py-24 md:py-32 bg-navy-900 relative">
-      <div className="max-w-7xl mx-auto px-5 md:px-8">
+    <section id="how-it-works" className="py-24 md:py-32 bg-deep-900 relative">
+      {/* Subtle background glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-teal-400/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+
+      <div className="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
           <ScrollReveal variant="fadeUp">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-navy-800 border border-border text-xs font-mono text-cobalt-light uppercase tracking-wider mb-4">
-              End-To-End Architecture
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-deep-800 border border-border text-xs font-mono text-teal-100 uppercase tracking-wider mb-5">
+              System Operation
             </div>
-            <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl text-text-primary tracking-tight">
-              From the Drain to the Maintenance Team
+            <h2 className="font-display font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-text-primary tracking-tight leading-[1.1]">
+              How FloodGuard Works
             </h2>
-            <p className="mt-4 text-text-secondary text-base sm:text-lg">
-              Follow the complete telemetry pathway through embedded edge controllers, cellular uplinks, cloud validation, and actionable municipal dispatch.
+            <p className="mt-5 text-text-secondary text-base sm:text-lg max-w-2xl mx-auto font-light leading-relaxed">
+              Three phases from sensor deployment to actionable intelligence. Autonomous operation with zero manual intervention required.
             </p>
           </ScrollReveal>
-
-          {/* Interactive alert simulation toggle */}
-          <div className="mt-6 inline-flex items-center gap-3 p-1.5 rounded-full bg-navy-800 border border-border">
-            <button
-              onClick={() => setSimulatedAlertActive(false)}
-              className={clsx(
-                'px-4 py-1.5 rounded-full text-xs font-mono transition-all duration-200',
-                !simulatedAlertActive
-                  ? 'bg-cobalt text-text-primary shadow-sm'
-                  : 'text-text-secondary hover:text-text-primary'
-              )}
-            >
-              Normal Telemetry Flow
-            </button>
-            <button
-              onClick={() => setSimulatedAlertActive(true)}
-              className={clsx(
-                'px-4 py-1.5 rounded-full text-xs font-mono transition-all duration-200 flex items-center gap-1.5',
-                simulatedAlertActive
-                  ? 'bg-alert-red text-text-primary shadow-sm shadow-alert-red/30'
-                  : 'text-text-secondary hover:text-text-primary'
-              )}
-            >
-              <AlertCircle className="w-3.5 h-3.5" />
-              Simulate Blockage Alert Path
-            </button>
-          </div>
         </div>
 
-        {/* 2-Column Split: Left Steps + Right Sticky Architecture Visualizer */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          {/* Left Column: Narrative steps that drive scroll */}
-          <div className="lg:col-span-7 space-y-12 lg:space-y-24">
-            {ARCHITECTURE_STEPS.map((step, idx) => {
-              const Icon = step.icon;
-              const isActive = activeStep === idx;
-
-              return (
-                <div
-                  key={step.id}
-                  ref={(el) => (stepRefs.current[idx] = el)}
-                  onClick={() => setActiveStep(idx)}
-                  className={clsx(
-                    'p-6 sm:p-8 rounded-2xl transition-all duration-300 border cursor-pointer',
-                    isActive
-                      ? simulatedAlertActive && idx >= 2
-                        ? 'bg-surface-elevated border-alert-red/50 shadow-lg shadow-alert-red/5'
-                        : 'bg-surface-elevated border-cobalt/50 shadow-lg shadow-cobalt/10'
-                      : 'bg-surface/50 border-border/60 opacity-60 hover:opacity-90'
-                  )}
-                >
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={clsx(
-                          'w-10 h-10 rounded-xl flex items-center justify-center font-mono font-bold text-sm',
-                          isActive
-                            ? simulatedAlertActive && idx >= 2
-                              ? 'bg-alert-red text-text-primary'
-                              : 'bg-cobalt text-text-primary'
-                            : 'bg-navy-800 text-text-muted border border-border'
-                        )}
-                      >
-                        0{idx + 1}
-                      </div>
-                      <div>
-                        <span className="text-xs font-mono uppercase tracking-wider text-text-muted">
-                          Stage {idx + 1}
-                        </span>
-                        <h3 className="font-display font-bold text-xl sm:text-2xl text-text-primary">
-                          {step.title}
-                        </h3>
-                      </div>
-                    </div>
-                    <span
-                      className={clsx(
-                        'text-xs font-mono px-3 py-1 rounded-full border',
-                        isActive
-                          ? 'border-cobalt/40 bg-cobalt/10 text-cobalt-light'
-                          : 'border-border bg-navy-800 text-text-muted'
-                      )}
-                    >
-                      {step.tag}
-                    </span>
-                  </div>
-
-                  <p className="text-text-secondary text-base leading-relaxed mb-4">
-                    {step.desc}
-                  </p>
-
-                  <div className="p-3.5 rounded-lg bg-navy-900/80 border border-border/80 font-mono text-xs text-text-secondary space-y-1">
-                    <div className="text-text-muted uppercase text-[10px] tracking-wider">Payload / Function:</div>
-                    <div className="text-text-primary">{step.telemetry}</div>
-                  </div>
-
-                  {step.criticalNote && (
-                    <div className="mt-3 flex items-center gap-2 text-xs font-mono text-alert-red">
-                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                      <span>{step.criticalNote}</span>
-                    </div>
-                  )}
+        {/* Three Step Process */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 md:mb-20">
+          {steps.map((step, idx) => (
+            <ScrollReveal key={step.number} variant="fadeUp" delay={idx * 0.1}>
+              <div className="group relative bg-surface border border-border rounded-2xl p-6 sm:p-8 h-full flex flex-col transition-all duration-300 hover:border-teal-400/40 hover:shadow-xl hover:shadow-teal-400/10">
+                {/* Step Number */}
+                <div className="absolute top-6 right-6 text-5xl md:text-6xl font-display font-bold text-white/5" aria-hidden="true">
+                  {step.number}
                 </div>
-              );
-            })}
-          </div>
 
-          {/* Right Column: Sticky Diagram with Moving Data Packets */}
-          <div className="hidden lg:block lg:col-span-5 sticky top-24 self-start">
-            <div className="bg-surface rounded-2xl border border-border p-6 shadow-2xl relative overflow-hidden">
-              <div className="flex items-center justify-between border-b border-border pb-4 mb-6">
-                <div>
-                  <div className="font-display font-semibold text-text-primary text-base">
-                    Live Data Flow Circuit
-                  </div>
-                  <div className="text-xs font-mono text-text-muted">
-                    {simulatedAlertActive ? 'STATE: POSSIBLE_BLOCKAGE ALERT' : 'STATE: NORMAL POLLING TELEMETRY'}
-                  </div>
+                {/* Icon */}
+                <div className={`w-14 h-14 rounded-xl ${step.bgColor} flex items-center justify-center mb-6 relative z-10 group-hover:scale-105 transition-transform duration-300`}>
+                  <step.icon className={`w-7 h-7 ${step.iconColor}`} aria-hidden="true" />
                 </div>
-                <div
-                  className={clsx(
-                    'w-3 h-3 rounded-full',
-                    simulatedAlertActive ? 'bg-alert-red animate-ping' : 'bg-emerald-400 animate-pulse'
-                  )}
-                />
+
+                {/* Content */}
+                <h3 className="font-display font-bold text-xl sm:text-2xl text-text-primary mb-3 relative z-10">
+                  {step.title}
+                </h3>
+                <p className="text-text-secondary text-sm sm:text-base leading-relaxed flex-1 relative z-10">
+                  {step.description}
+                </p>
+
+                {/* Connector Arrow (desktop only) */}
+                {idx < 2 && (
+                  <div className="hidden lg:block absolute top-14 right-[-24px] w-12 h-1 flex items-center justify-center z-10">
+                    <div className="w-full h-0.5 bg-gradient-to-r from-border to-teal-400/40" />
+                    <ArrowRight className="w-5 h-5 text-teal-400/60 -ml-2" />
+                  </div>
+                )}
               </div>
+            </ScrollReveal>
+          ))}
 
-              {/* Vertical node list */}
-              <div className="space-y-2 relative">
-                {ARCHITECTURE_STEPS.map((s, i) => {
-                  const SIcon = s.icon;
-                  const isCurrent = activeStep === s.id;
-                  const isPassed = activeStep > s.id;
-                  const isCritical = simulatedAlertActive && s.id >= 2;
-
-                  return (
-                    <div key={s.id} className="relative">
-                      {/* Node button */}
-                      <button
-                        onClick={() => setActiveStep(s.id)}
-                        className={clsx(
-                          'w-full flex items-center gap-3.5 px-4 py-3 rounded-xl border text-left transition-all duration-300 relative z-10',
-                          isCurrent
-                            ? isCritical
-                              ? 'bg-alert-red/10 border-alert-red text-text-primary shadow-md shadow-alert-red/10'
-                              : 'bg-cobalt/15 border-cobalt text-text-primary shadow-md shadow-cobalt/20'
-                            : isPassed
-                            ? 'bg-navy-800/40 border-border/80 text-text-secondary'
-                            : 'bg-navy-900/40 border-border/40 text-text-muted'
-                        )}
-                      >
-                        <div
-                          className={clsx(
-                            'w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors',
-                            isCurrent
-                              ? isCritical
-                                ? 'bg-alert-red text-text-primary'
-                                : 'bg-cobalt text-text-primary'
-                              : 'bg-navy-800 text-text-muted'
-                          )}
-                        >
-                          <SIcon className="w-4 h-4" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="text-xs font-mono text-text-muted leading-none mb-1">
-                            0{i + 1} · {s.tag}
-                          </div>
-                          <div className="font-display font-semibold text-sm truncate text-text-primary">
-                            {s.title}
-                          </div>
-                        </div>
-
-                        {isCurrent && (
-                          <motion.div
-                            layoutId="activePill"
-                            className="w-2 h-2 rounded-full bg-cobalt shadow-[0_0_8px_#2563EB]"
-                          />
-                        )}
-                      </button>
-
-                      {/* Connecting Line between nodes */}
-                      {i < ARCHITECTURE_STEPS.length - 1 && (
-                        <div className="w-0.5 h-4 bg-navy-600 mx-auto my-0.5 relative overflow-hidden">
-                          {(isPassed || isCurrent) && (
-                            <motion.div
-                              className={clsx(
-                                'absolute top-0 left-0 right-0 h-2 rounded-full',
-                                isCritical ? 'bg-alert-red' : 'bg-cobalt'
-                              )}
-                              animate={{ y: [-8, 20] }}
-                              transition={{
-                                duration: 1.2,
-                                repeat: Infinity,
-                                ease: 'linear',
-                              }}
-                            />
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Active Node Detail Card */}
-              <div className="mt-6 pt-5 border-t border-border">
-                <div className="text-[11px] font-mono text-text-muted uppercase tracking-wider mb-1">
-                  Active Subsystem Detail:
-                </div>
-                <div className="font-display font-bold text-base text-text-primary">
-                  {ARCHITECTURE_STEPS[activeStep].title}
-                </div>
-                <div className="text-xs text-text-secondary mt-1">
-                  {ARCHITECTURE_STEPS[activeStep].desc}
-                </div>
-              </div>
+          {/* Mobile connectors */}
+          <div className="lg:hidden grid grid-cols-2 gap-6 mt-8">
+            <div className="flex items-center justify-center">
+              <div className="w-0.5 h-12 bg-gradient-to-b from-teal-400/40 to-border" />
+            </div>
+            <div className="flex items-center justify-center">
+              <div className="w-0.5 h-12 bg-gradient-to-b from-teal-400/40 to-border" />
             </div>
           </div>
         </div>
+
+        {/* Technology Stack */}
+        <div className="border-t border-border/50 pt-16">
+          <div className="text-center mb-12">
+            <h3 className="font-display font-bold text-2xl sm:text-3xl text-text-primary mb-2">
+              Technology Stack
+            </h3>
+            <p className="text-text-secondary text-sm max-w-xl mx-auto">
+              Purpose-built hardware and software architecture for resilient field deployment.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {techStack.map((tech, idx) => (
+              <ScrollReveal key={tech.label} variant="fadeUp" delay={idx * 0.08}>
+                <div className="bg-surface border border-border rounded-xl p-5 text-center hover:border-teal-400/40 hover:bg-surface-elevated transition-all duration-300 group">
+                  <div className="w-12 h-12 mx-auto mb-4 rounded-lg bg-deep-800 border border-border flex items-center justify-center text-teal-400 group-hover:bg-teal-400 group-hover:text-text-primary transition-all duration-300">
+                    <tech.icon className="w-5 h-5" aria-hidden="true" />
+                  </div>
+                  <div className="font-display font-semibold text-text-primary text-sm mb-1">
+                    {tech.label}
+                  </div>
+                  <div className="text-xs text-text-muted">
+                    {tech.desc}
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="mt-12 text-center">
+            <button
+              onClick={() => navigate('/dashboard')}
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-teal-400 to-teal-500 text-text-primary font-semibold rounded-xl shadow-lg shadow-teal-400/25 hover:from-teal-500 hover:to-teal-600 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+            >
+              <span>View Live Dashboard</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
       </div>
     </section>
   );

@@ -19,8 +19,8 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { label: 'Home', to: '/' },
-    { label: 'About', hash: '#about' },
+    { label: 'Overview', to: '/' },
+    { label: 'Problem', hash: '#about' },
     { label: 'How It Works', hash: '#how-it-works' },
     { label: 'Technology', hash: '#technology' },
     { label: 'Dashboard', to: '/dashboard' },
@@ -49,138 +49,143 @@ export default function Navbar() {
   };
 
   return (
-    <header
-      className={clsx(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-16',
-        scrolled
-          ? 'bg-navy-900/90 backdrop-blur-xl border-b border-border shadow-lg shadow-navy-950/50'
-          : 'bg-navy-900/50 backdrop-blur-md border-b border-border/40'
-      )}
-    >
-      <div className="max-w-7xl mx-auto px-5 md:px-8 h-full flex items-center justify-between">
-        {/* Logo */}
-        <Link
-          to="/"
-          className="flex items-center gap-2.5 group cursor-pointer"
-          data-cursor="explore"
-        >
-          <div className="w-8 h-8 rounded-lg bg-cobalt/20 border border-cobalt/40 flex items-center justify-center text-cobalt group-hover:bg-cobalt group-hover:text-text-primary transition-all duration-300">
-            <Droplets className="w-4 h-4" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-display font-bold text-lg tracking-tight text-text-primary">
-              Flood<span className="text-cobalt-light">Guard</span>
+    <div className="fixed top-6 left-0 right-0 z-50 flex justify-center pointer-events-none px-4 sm:px-6">
+      <header
+        className={clsx(
+          'pointer-events-auto h-14 rounded-full transition-all duration-500 flex items-center px-4 sm:px-6 shadow-2xl w-full max-w-[1200px]',
+          scrolled
+            ? 'bg-deep-950/90 backdrop-blur-2xl border border-teal-400/20 shadow-teal-400/5'
+            : 'bg-deep-950/70 backdrop-blur-xl border border-border/60 shadow-deep-950/20'
+        )}
+      >
+        <div className="flex items-center justify-between gap-4 w-full">
+          {/* Logo */}
+          <Link
+            to="/"
+            className="flex items-center gap-2.5 group cursor-pointer shrink-0"
+            data-cursor="explore"
+            aria-label="FloodGuard Home"
+          >
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br from-teal-400 to-teal-500 flex items-center justify-center">
+              <Droplets className="w-5 h-5 sm:w-5.5 sm:h-5.5 text-text-primary" />
+            </div>
+            <span className="font-display font-bold text-base sm:text-lg tracking-tight text-text-primary hidden sm:block">
+              Flood<span className="text-teal-100">Guard</span>
             </span>
-            <span className="text-[10px] text-text-muted font-mono leading-none -mt-0.5 tracking-wider uppercase">
-              Smart Water System
-            </span>
-          </div>
-        </Link>
+          </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1 lg:gap-2">
-          {navLinks.map((link) => {
-            const isRoute = Boolean(link.to);
-            const isActive = isRoute && location.pathname === link.to;
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-1 flex-1 justify-center">
+            {navLinks.slice(0, 5).map((link) => {
+              const isRoute = Boolean(link.to);
+              const isActive = isRoute && location.pathname === link.to;
 
-            if (link.hash) {
+              if (link.hash) {
+                return (
+                  <a
+                    key={link.label}
+                    href={`/${link.hash}`}
+                    onClick={(e) => handleNavClick(e, link)}
+                    className="px-4 py-2 rounded-full text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-teal-400/10 transition-all duration-200 cursor-pointer whitespace-nowrap"
+                  >
+                    {link.label}
+                  </a>
+                );
+              }
+
               return (
-                <a
+                <NavLink
                   key={link.label}
-                  href={`/${link.hash}`}
+                  to={link.to}
                   onClick={(e) => handleNavClick(e, link)}
-                  className="px-3.5 py-1.5 rounded-lg text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-navy-800/60 transition-all duration-200 cursor-pointer"
+                  className={clsx(
+                    'px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 relative cursor-pointer whitespace-nowrap',
+                    isActive
+                      ? 'text-text-primary font-semibold bg-teal-400/15 shadow-sm'
+                      : 'text-text-secondary hover:text-text-primary hover:bg-teal-400/10'
+                  )}
                 >
                   {link.label}
-                </a>
+                </NavLink>
               );
-            }
+            })}
+          </nav>
 
-            return (
-              <NavLink
-                key={link.label}
-                to={link.to}
-                onClick={(e) => handleNavClick(e, link)}
-                className={clsx(
-                  'px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 relative cursor-pointer',
-                  isActive
-                    ? 'text-text-primary font-semibold'
-                    : 'text-text-secondary hover:text-text-primary hover:bg-navy-800/60'
-                )}
-              >
-                {link.label}
-                {isActive && (
-                  <motion.div
-                    layoutId="navIndicator"
-                    className="absolute bottom-0 left-2 right-2 h-0.5 bg-cobalt rounded-full shadow-[0_0_8px_#2563EB]"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </NavLink>
-            );
-          })}
-        </nav>
+          {/* Right Side Actions */}
+          <div className="flex items-center gap-2 shrink-0">
+            <Link
+              to="/contact"
+              className="hidden sm:block px-6 py-2.5 rounded-full bg-teal-400 text-text-primary text-sm font-semibold shadow-lg shadow-teal-400/25 hover:shadow-teal-400/40 hover:scale-[1.02] transition-all duration-300"
+            >
+              Get Started
+            </Link>
 
-        {/* Desktop Status Pulse Indicator */}
-        <div className="hidden lg:flex items-center gap-3">
-          <Link
-            to="/dashboard"
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-navy-800/80 border border-border hover:border-cobalt/50 transition-colors duration-200 text-xs font-mono text-text-secondary hover:text-text-primary cursor-pointer"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span>SYSTEM ACTIVE</span>
-          </Link>
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden p-2.5 rounded-xl text-text-secondary hover:text-text-primary hover:bg-teal-400/10 transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-expanded={mobileMenuOpen}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile menu button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-navy-800/80 transition-colors cursor-pointer"
-          aria-label="Toggle navigation menu"
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </div>
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden overflow-hidden py-4 border-t border-border/60"
+            >
+              <nav className="flex flex-col gap-2">
+                {navLinks.map((link) => {
+                  const isRoute = Boolean(link.to);
+                  const isActive = isRoute && location.pathname === link.to;
 
-      {/* Mobile navigation drawer */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="md:hidden bg-navy-900/98 border-b border-border backdrop-blur-2xl overflow-hidden"
-          >
-            <div className="px-5 py-4 space-y-1">
-              {navLinks.map((link) => (
-                <button
-                  key={link.label}
-                  onClick={(e) => {
-                    handleNavClick(e, link);
-                    if (link.to) navigate(link.to);
-                  }}
-                  className="w-full text-left block px-4 py-2.5 rounded-lg text-base font-medium text-text-secondary hover:text-text-primary hover:bg-navy-800/80 transition-colors cursor-pointer"
-                >
-                  {link.label}
-                </button>
-              ))}
-              <div className="pt-3 border-t border-navy-800 mt-2">
+                  if (link.hash) {
+                    return (
+                      <a
+                        key={link.label}
+                        href={`/${link.hash}`}
+                        onClick={(e) => handleNavClick(e, link)}
+                        className="px-4 py-3 rounded-xl text-base font-medium text-text-secondary hover:text-text-primary hover:bg-teal-400/10 transition-all duration-200"
+                      >
+                        {link.label}
+                      </a>
+                    );
+                  }
+
+                  return (
+                    <NavLink
+                      key={link.label}
+                      to={link.to}
+                      onClick={(e) => handleNavClick(e, link)}
+                      className={clsx(
+                        'px-4 py-3 rounded-xl text-base font-medium transition-all duration-200',
+                        isActive
+                          ? 'text-text-primary font-semibold bg-teal-400/15'
+                          : 'text-text-secondary hover:text-text-primary hover:bg-teal-400/10'
+                      )}
+                    >
+                      {link.label}
+                    </NavLink>
+                  );
+                })}
                 <Link
-                  to="/dashboard"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block w-full py-2.5 px-4 text-center rounded-lg bg-cobalt hover:bg-cobalt-light text-text-primary font-medium text-sm transition-colors cursor-pointer"
+                  to="/contact"
+                  className="mt-2 px-6 py-3 rounded-xl bg-teal-400 text-text-primary text-center font-semibold shadow-lg shadow-teal-400/25 hover:shadow-teal-400/40 transition-all duration-300"
                 >
-                  Open Dashboard
+                  Get Started
                 </Link>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+    </div>
   );
 }
